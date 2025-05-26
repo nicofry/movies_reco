@@ -7,8 +7,14 @@ import sys
 import os
 
 app = FastAPI()
+#uvicorn main:app --reload
 
 @app.get('/suggest')
 def suggest(name:str):
     la_liste = title_list(name)
     return la_liste
+
+@app.get('/reco')
+def reco(choice:str):
+    df_result = ML_lezgo(choice).to_dict()
+    return df_result

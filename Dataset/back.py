@@ -67,9 +67,10 @@ nn_model = NearestNeighbors(n_neighbors=k, algorithm='auto', metric='euclidean')
 # .fit() indexe les données X_knn_scaled
 nn_model.fit(X_nn_scaled) # Entraîner sur les données standardisées X
 
-def ML_lezgo(pos:int):
-    pos = 40007
-    X_test_scaled = X_nn_scaled[[pos]]
+
+def ML_lezgo(titre_year:str):
+    pos = df[df['title_and_year'] == titre_year].index
+    X_test_scaled = X_nn_scaled[pos]
 
     # Test avec le film
     distances, indices = nn_model.kneighbors(X_test_scaled)
