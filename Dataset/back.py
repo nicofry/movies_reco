@@ -51,12 +51,12 @@ X_nn_scaled[:,1] = X_nn_scaled[:,1] * 0.5
 #Adaptation de l'importance de la note moyenne
 X_nn_scaled[:,2] = X_nn_scaled[:,2] * 2
 #Adaptation de l'importance du nombre de votes
-X_nn_scaled[:,3] = X_nn_scaled[:,3] * 3
+X_nn_scaled[:,3] = X_nn_scaled[:,3] * 6
 #Adaptation de l'importance de la popularité
-X_nn_scaled[:,4] = X_nn_scaled[:,4] * 5
+X_nn_scaled[:,4] = X_nn_scaled[:,4] * 3
 #Adaptation de l'importance du genre
 for i in range(5, len(X.columns)):
-    X_nn_scaled[:,i] = X_nn_scaled[:,i] * 6
+    X_nn_scaled[:,i] = X_nn_scaled[:,i] * 8
 
 #-----------ML-------------------------------------------------
 
@@ -82,10 +82,10 @@ def ML_lezgo(titre_year:str):
 
     # Sélectionner les lignes des voisins dans df et quelques colonnes pertinentes
     nearest_neighbor_info = df.loc[n_neighbor_original_indices][['primaryTitle', 'startYear', 'runtimeMinutes',
-    'averageRating', 'numVotes', 'budget','genres', 'poster_path']]
+    'averageRating','genres', 'poster_path']]
     nearest_neighbor_info['near'] = True
     farest_neighbor_info = df.loc[f_neighbor_original_indices][['primaryTitle', 'startYear', 'runtimeMinutes',
-    'averageRating', 'numVotes', 'budget','genres', 'poster_path']]
+    'averageRating','genres', 'poster_path']]
     farest_neighbor_info['near'] = False
 
     df_result = pd.concat([nearest_neighbor_info,farest_neighbor_info], axis = 0)
