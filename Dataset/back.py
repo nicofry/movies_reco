@@ -17,7 +17,7 @@ import re
 
 #------------Chargement de la table---------------------------------
 
-df = pd.read_csv(r'C:\Users\nicol\Documents\Formation\P2\Dataset\ML_table.csv')
+df = pd.read_csv(r'C:\Users\nicol\Documents\Formation\2-P2\Dataset\ML_table.csv')
 df.drop_duplicates(subset= 'tconst', inplace= True)
 df.rename(columns={'Unnamed: 0' : 'pos'}, inplace= True)
 
