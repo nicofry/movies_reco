@@ -13,13 +13,14 @@ from sklearn.pipeline import Pipeline
 import unidecode
 import unicodedata
 import re
+import os
 
 
 #------------Chargement de la table---------------------------------
 
-df = pd.read_csv(r'C:\Users\nicol\Documents\Formation\2-P2\Dataset\ML_table.csv')
-df.drop_duplicates(subset= 'tconst', inplace= True)
-df.rename(columns={'Unnamed: 0' : 'pos'}, inplace= True)
+base_dir = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(base_dir, "ML_table.csv")
+df = pd.read_csv(file_path)
 
 def normalize(title):
     # Mettre en minuscules et enlever les espaces superflus
@@ -40,7 +41,7 @@ def title_list(search:str):
 
 #------------Préparation de la table au ML--------------------------
 
-X = df.drop(columns=['pos', 'tconst','primaryTitle', 'genres', 'budget', 'revenue', 'normalized_title', 'poster_path', 'title_and_year'])
+X = df.drop(columns=[ 'tconst','primaryTitle', 'genres', 'budget', 'revenue', 'normalized_title', 'poster_path', 'title_and_year', 'overview', 'keywords'])
 scaler_nn = StandardScaler()
 X_nn_scaled = scaler_nn.fit_transform(X)
 
@@ -69,7 +70,8 @@ nn_model.fit(X_nn_scaled) # Entraîner sur les données standardisées X
 
 
 def ML_lezgo(titre_year:str):
-    pos = df[df['title_and_year'] == titre_year].index
+    raw = r"{}".format(titre_year)
+    pos = df[df['title_and_year'] == raw].index
     X_test_scaled = X_nn_scaled[pos]
 
     # Test avec le film

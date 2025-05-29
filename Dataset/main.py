@@ -16,5 +16,6 @@ def suggest(name:str):
 
 @app.get('/reco')
 def reco(choice:str):
-    df_result = ML_lezgo(choice).to_dict()
+    raw = r"{}".format(choice)
+    df_result = ML_lezgo(raw).to_dict()
     return df_result
