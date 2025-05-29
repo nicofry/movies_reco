@@ -36,8 +36,8 @@ def normalize(title):
 def title_list(search:str):
     n_search = normalize(search)
     titles_df = df[['tconst','normalized_title','numVotes','title_and_year', 'startYear','popularity']].sort_values(by=['numVotes', 'startYear'], ascending= False)
-    list_films = titles_df[titles_df['normalized_title'].apply(lambda x: n_search in(x))]['title_and_year'].to_list()
-    return list_films
+    df_titres = titles_df[titles_df['normalized_title'].apply(lambda x: n_search in(x))][['title_and_year', 'tconst']]
+    return df_titres
 
 #------------Préparation de la table au ML--------------------------
 
@@ -69,9 +69,8 @@ nn_model = NearestNeighbors(n_neighbors=k, algorithm='auto', metric='euclidean')
 nn_model.fit(X_nn_scaled) # Entraîner sur les données standardisées X
 
 
-def ML_lezgo(titre_year:str):
-    raw = r"{}".format(titre_year)
-    pos = df[df['title_and_year'] == raw].index
+def ML_lezgo(tconst:str):
+    pos = df[df['tconst'] == tconst].index
     X_test_scaled = X_nn_scaled[pos]
 
     # Test avec le film

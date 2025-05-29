@@ -142,7 +142,9 @@ if query:
     try:
         response = requests.get(f"http://localhost:8000/suggest?name={query}")
         if response.status_code == 200:
-            suggestions = response.json()
+            df_titles_json = response.json()
+            df_titles = pd.DataFrame(df_titles_json)
+            suggestions = df_titles['title_and_year'].to_list()
             
         else:
             st.markdown("<p style='color: hotpink; font-weight: bold;'>There is a couille in the paté</p>", unsafe_allow_html=True)
@@ -153,16 +155,16 @@ if query:
         st.markdown(f"<p style='color: hotpink; font-weight: bold;'>Tu as choisi {choice}</p>", unsafe_allow_html=True)
 
         if choice:
+            tconst = df_titles[df_titles['title_and_year'] == choice]['tconst'].iloc[0]
             st.write('Option confort ou option découverte?')
             launch = st.button('Confort')
             launch2 = st.button('Découverte')
             if launch or launch2:
-                response_reco = requests.get(f"http://localhost:8000/reco?choice={choice}")
+                response_reco = requests.get(f"http://localhost:8000/reco?choice={tconst}")
                 if response_reco.status_code == 200:
                     recos = response_reco.json()
                     df = pd.DataFrame(recos)
                     base_url = "https://image.tmdb.org/t/p/w500"
-
                 if launch:
                         st.write('Vous allez adorer:')
                         #st.dataframe(df.head())

@@ -11,11 +11,10 @@ app = FastAPI()
 
 @app.get('/suggest')
 def suggest(name:str):
-    la_liste = title_list(name)
-    return la_liste
+    df_titles = title_list(name).to_dict()
+    return df_titles
 
 @app.get('/reco')
 def reco(choice:str):
-    raw = r"{}".format(choice)
-    df_result = ML_lezgo(raw).to_dict()
+    df_result = ML_lezgo(choice).to_dict()
     return df_result
