@@ -14,15 +14,16 @@ import unidecode
 import unicodedata
 import re
 import os
-
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 #------------Chargement de la table---------------------------------
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
-file_path = os.path.join(base_dir, "ML_table.csv")
+file_path = os.path.join(base_dir, r"NLP_table_prep.csv")
 df = pd.read_csv(file_path)
 
-def normalize(title):
+def normalize(title:str):
     # Mettre en minuscules et enlever les espaces superflus
     title = title.strip().lower()
     # Enlever les accents
@@ -35,58 +36,36 @@ def normalize(title):
 
 def title_list(search:str):
     n_search = normalize(search)
-    titles_df = df[['tconst','normalized_title','numVotes','title_and_year', 'startYear','popularity']].sort_values(by=['numVotes', 'startYear'], ascending= False)
+    titles_df = df[['tconst','normalized_title','numVotes','title_and_year', 'startYear']].sort_values(by=['numVotes', 'startYear'], ascending= False)
     df_titres = titles_df[titles_df['normalized_title'].apply(lambda x: n_search in(x))][['title_and_year', 'tconst']]
     return df_titres
-
-#------------Préparation de la table au ML--------------------------
-
-X = df.drop(columns=[ 'tconst','primaryTitle', 'genres', 'budget', 'revenue', 'normalized_title', 'poster_path', 'title_and_year', 'overview', 'keywords'])
-scaler_nn = StandardScaler()
-X_nn_scaled = scaler_nn.fit_transform(X)
-
-#Adaptation de l'importance de l'année de sortie
-X_nn_scaled[:,0] = X_nn_scaled[:,0] * 1
-#Adaptation de l'importance de la durée du film
-X_nn_scaled[:,1] = X_nn_scaled[:,1] * 0.5
-#Adaptation de l'importance de la note moyenne
-X_nn_scaled[:,2] = X_nn_scaled[:,2] * 2
-#Adaptation de l'importance du nombre de votes
-X_nn_scaled[:,3] = X_nn_scaled[:,3] * 6
-#Adaptation de l'importance de la popularité
-X_nn_scaled[:,4] = X_nn_scaled[:,4] * 3
-#Adaptation de l'importance du genre
-for i in range(5, len(X.columns)):
-    X_nn_scaled[:,i] = X_nn_scaled[:,i] * 8
 
 #-----------ML-------------------------------------------------
 
 
-k = 51017 # Nombre de voisins à trouver (y compris le point lui-même si k>0 et qu'il est dans les données)
-
-nn_model = NearestNeighbors(n_neighbors=k, algorithm='auto', metric='euclidean')
-# .fit() indexe les données X_knn_scaled
-nn_model.fit(X_nn_scaled) # Entraîner sur les données standardisées X
+vectorizer = TfidfVectorizer()
+matrix = vectorizer.fit_transform(df['all_categ'])
 
 
 def ML_lezgo(tconst:str):
     pos = df[df['tconst'] == tconst].index
-    X_test_scaled = X_nn_scaled[pos]
+    matrix_movie = matrix[pos]
+    simil = cosine_similarity(matrix, matrix_movie)
 
     # Test avec le film
-    distances, indices = nn_model.kneighbors(X_test_scaled)
-    indices_nn = indices[0][1:6]
-    indices_fn = indices[0][-5:]
+    ind = np.argpartition(simil.ravel(), -20)[-20:]
 
-    n_neighbor_original_indices = X.iloc[indices_nn].index
-    f_neighbor_original_indices = X.iloc[indices_fn].index
+
+    neighbor_info = df.loc[ind][['tconst', 'primaryTitle','startYear', 'runtimeMinutes',
+   'averageRating', 'numVotes', 'genres', 'poster_path']].sort_values(by= 'numVotes', ascending= False)
+    
+    neighbor_info = neighbor_info[neighbor_info['tconst'] != tconst]
+
 
     # Sélectionner les lignes des voisins dans df et quelques colonnes pertinentes
-    nearest_neighbor_info = df.loc[n_neighbor_original_indices][['primaryTitle', 'startYear', 'runtimeMinutes',
-    'averageRating','genres', 'poster_path']]
+    nearest_neighbor_info = neighbor_info[0:6]
     nearest_neighbor_info['near'] = True
-    farest_neighbor_info = df.loc[f_neighbor_original_indices][['primaryTitle', 'startYear', 'runtimeMinutes',
-    'averageRating','genres', 'poster_path']]
+    farest_neighbor_info = neighbor_info[-5:]
     farest_neighbor_info['near'] = False
 
     df_result = pd.concat([nearest_neighbor_info,farest_neighbor_info], axis = 0)
@@ -94,4 +73,3 @@ def ML_lezgo(tconst:str):
 
     
     return df_result
-
