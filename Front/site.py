@@ -156,9 +156,20 @@ if query:
 
         if choice:
             tconst = df_titles[df_titles['title_and_year'] == choice]['tconst'].iloc[0]
-            st.write('Option confort ou option découverte?')
-            launch = st.button('Confort')
-            launch2 = st.button('Découverte')
+            st.markdown("<h4 style='text-align: center;'>Option confort ou option découverte?</h4>", 
+            unsafe_allow_html=True)
+            # Créer trois colonnes avec espacement pour centrer les boutons
+            col1, col2, col3 = st.columns([1, 2, 1])
+            
+            # Placer les boutons dans la colonne du milieu
+            with col2:
+                subcol1, subcol2 = st.columns(2)
+                with subcol1:
+                    launch = st.button('Confort', use_container_width=True)
+                with subcol2:
+                    launch2 = st.button('Découverte', use_container_width=True)
+
+
             if launch or launch2:
                 response_reco = requests.get(f"http://localhost:8000/reco?choice={tconst}")
                 if response_reco.status_code == 200:
@@ -166,15 +177,16 @@ if query:
                     df = pd.DataFrame(recos)
                     base_url = "https://image.tmdb.org/t/p/w500"
                 if launch:
-                        st.write('Vous allez adorer:')
-                        #st.dataframe(df.head())
+                        st.markdown("<h5 style='text-align: center;'>Vous allez adorer:</h5>", 
+                        unsafe_allow_html=True)
                         cols = st.columns(5)
                         for i, row in enumerate(df.head().itertuples()):
                             with cols[i]:
                                 st.image(f"{base_url}{row.poster_path}", use_container_width=True)
                                 st.markdown(f"**{row.primaryTitle}**<br>⭐ {round(row.averageRating, 1)}", unsafe_allow_html=True) 
                 elif launch2:
-                        st.write('A vos antipodes, vous trouverez:')
+                        st.markdown("<h5 style='text-align: center;'>Moins connu mais pourquoi pas:</h5>", 
+                        unsafe_allow_html=True)
                         cols = st.columns(5)
                         for i, row in enumerate(df.tail().itertuples()):
                             with cols[i]:
@@ -188,8 +200,12 @@ with open(file_path_gif, "rb") as file_:
     contents = file_.read()
     data_url = base64.b64encode(contents).decode("utf-8")
 data_url_full = f"data:image/gif;base64,{data_url}"
-st.markdown(
-    f"<img src='{data_url_full}' style='width:300px; border-radius:10px;'>",
-    unsafe_allow_html=True
-)
+
+# Créer trois colonnes pour centrer
+col1, col2, col3 = st.columns([1, 1, 1])
+with col2:
+    st.markdown(
+        f"<img src='{data_url_full}' style='width:300px; border-radius:10px;'>",
+        unsafe_allow_html=True
+    )
 
