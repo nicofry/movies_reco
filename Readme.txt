@@ -82,3 +82,6 @@ Voilà!
 Merci à tous, la promo Wild 2025, Viven, Abdel, la boulangerie du coin et ses flans.
 Merci à vous, vous êtes incroyables!
 
+
+<img width="721" alt="Image" src="https://github.com/user-attachments/assets/6357fbfe-8ecb-4167-8f07-c4dfdc0380bd" />
+
