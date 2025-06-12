@@ -18,73 +18,29 @@ Toutes les bibliothèques utilisées sont dans requirements.txt à la racine du 
 
 2. COMPOSITION
 
-📂 Dossier Dataset :  
+### Structure du projet
 
-__init__.py : Permet la relation inter-dossier  
+| Emplacement            | Fichier                      | Description                                                      |
+|------------------------|------------------------------|------------------------------------------------------------------|
+|    Dataset             | `__init__.py`                | Permet la relation inter-dossier                                 |
+|                        | `back.py`                    | Contient les fonctions de recommandation                         |
+|                        | `main.py`                    | Contient l’API                                                    |
+|                        | `NLP_table_prep.csv`         | Table de données utilisée pour les recommandations               |
+|    Front               | `__init__.py`                | Permet la relation inter-dossier                                 |
+|                        | `site.py`                    | Interface utilisateur avec Streamlit                             |
+|                        | `wallpaper.jpg`              | Image de fond du site                                            |
+|                        | `git_donut.gif`              | Gif affiché sur la page front                                    |
+|    Racine du projet    | `requirements.txt`           | Liste des bibliothèques utilisées                                |
+|                        | `readme.txt`                 | C’est ici ! 😄                                                    |
 
-back.py : Contient les différentes fonctions de recommandation  
+---
 
-main.py : Contient l'API  
+###  Détail `NLP_table_prep.csv`
 
-NLP_table_prep.csv : Table de données utilisée pour les recommandations (voir plus bas)  
+- **Taille** : 51 467 lignes × 18 colonnes
 
-📂 Dossier Front :  
 
-__init__.py : Permet la relation inter-dossier  
-
-site.py : Interface utilisateur avec Streamlit  
-
-wallpaper.jpg : Image de fond du site  
-
-git_donut.gif : Gif affiché sur la page front  
-
- Fichiers à la racine :  
- 
-requirements.txt : Liste des bibliothèques utilisées  
-
-readme.txt : C'est ici !  
-
- Focus sur NLP_table_prep.csv :  
- 
-Taille : 51 467 lignes × 18 colonnes  
-
-Colonnes principales :  
-
-Colonne	Description  
-
-Unnamed: 0	Numéro de ligne  
-
-primaryTitle	Titre du film (version française)  
-
-tconst	Identifiant IMDB  
-
-runtimeMinutes	Durée du film (minutes)  
-
-genres	Genres du film (max 3)  
-
-averageRating	Note moyenne IMDB  
-
-overview	Résumé du film (en anglais)  
-
-poster_path	Lien (partiel) vers le poster (depuis AlloCiné)  
-
-title_and_year	Titre + année (utile pour différencier les remakes)  
-
-nconst	Identifiants IMDB des acteurs et du réalisateur  
-
-all_categ	Concaténation de genres, overview, acteurs, keywords, Bonfilm  
-
-overview_simple	Résultat de all_categ passé dans un normalizer + lemmatiseur  
-
-startYear	Année de sortie  
-
-normalized_title	Version normalisée de primaryTitle  
-
-numVotes	Nombre de votes IMDB  
-
-keywords	Mots-clés associés (depuis TMDB)  
-
-### 📊 Colonnes principales
+###  Colonnes principales
 
 | Colonne            | Description                                                                 |
 |--------------------|-----------------------------------------------------------------------------|
