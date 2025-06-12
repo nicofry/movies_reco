@@ -16,45 +16,51 @@ Toutes les bibliothèques utilisées sont dans requirements.txt à la racine du 
 
 -------------------------------------------------------------
 
-2. COMPOSITION
+📁 COMPOSITION
 
-Dossier Dataset:
-	- __init__.py:    Permet la relation interdossier
-	- back.py:    Fichier python contenant les différentes fonctions permettant la recommandation.
-	- main.py:    Fichier python contenant l'API.
-	- NLP_table_prep.csv:    Table de données dont sont issues les informations de recommandation (composition plus loin).
-Dossier Front:
-	- __init__.py:    Permet la relation interdossier.
-	- site.py:    Fichier python contenant l'interface Streamlit.
-	- wallpaper.jpg:    Image de fond du site.
-	- git_donut.gif:    Gif sur le front.
-
-requirements.txt:    Liste des bibliothèques utilisées.
-readme.txt:    C'est là!
-
-(Focus sur NLP_table_prep:
-CSV de 51467 lignes et 18 colonnes
-Colonnes:-"Unnamed: 0":    Numéro de ligne
-	 -"primaryTitle":    Titre du film dans sa version française
-	 -"tconst":    identifiant IMDB du film
-	 -"runtimeMinutes":    durée en minutes du film
-	 -"genres":    étiquettes de genre attribuées au film (3 maximum)
-	 -"averageRating":    Note moyenne sur IMDB
-	 -"overview":    Résumé du film (en anglais)
-	 -"poster_path":    Fragment de lien vers le poster depuis allocine
-	 -"title_and_year":    Concaténation des titres et années (pour retrouver en cas de remake)
-	 -"nconst":    Identifiants IMDB des acteurs présents du film et du director.
-	 -"all_categ":    Concatenation de genres, overview, nconst, keywords, Bonfilm.
-	 -"overview_simple":    résultat de la colonne all_categ passée dans un normalizer et lemma (dans back.py)
-	 -"startYear":    Année de sortie
-	 -"normalized_title":    Version normalisée de primaryTitle (passée dans la fonction de back.py prévue à cet effet).
-	 -"numVotes":    Nombre de votes sur IMDB
-	 -"keywords":    Mots clés associés au film (depuis TMDB)
-	 -"Connu":    Métrique de popularité pour le NLP. Si numVotes > 7000 classé 'filmconnu'. Sinon 'filmpasconnu'
-	 -"Bonfilm":    Métrique de note du film pour le NLP¨. Si averageRating > 8: 'Topfilm'. Sinon si > 5: 'Boffilm'. Sinon si > 3: "Nazefilm". Sinon "Epicnanar".
-
-Les lignes sont les films, la sélection s'est fait sur un filtre des films de 1960 à 2025 et uniquement ceux sortis en France.)
-
+📂 Dossier Dataset :
+__init__.py : Permet la relation inter-dossier
+back.py : Contient les différentes fonctions de recommandation
+main.py : Contient l'API
+NLP_table_prep.csv : Table de données utilisée pour les recommandations (voir plus bas)
+📂 Dossier Front :
+__init__.py : Permet la relation inter-dossier
+site.py : Interface utilisateur avec Streamlit
+wallpaper.jpg : Image de fond du site
+git_donut.gif : Gif affiché sur la page front
+📄 Fichiers à la racine :
+requirements.txt : Liste des bibliothèques utilisées
+readme.txt : C'est ici ! 👋
+🔍 Focus sur NLP_table_prep.csv :
+Taille : 51 467 lignes × 18 colonnes
+Colonnes principales :
+Colonne	Description
+Unnamed: 0	Numéro de ligne
+primaryTitle	Titre du film (version française)
+tconst	Identifiant IMDB
+runtimeMinutes	Durée du film (minutes)
+genres	Genres du film (max 3)
+averageRating	Note moyenne IMDB
+overview	Résumé du film (en anglais)
+poster_path	Lien (partiel) vers le poster (depuis AlloCiné)
+title_and_year	Titre + année (utile pour différencier les remakes)
+nconst	Identifiants IMDB des acteurs et du réalisateur
+all_categ	Concaténation de genres, overview, acteurs, keywords, Bonfilm
+overview_simple	Résultat de all_categ passé dans un normalizer + lemmatiseur
+startYear	Année de sortie
+normalized_title	Version normalisée de primaryTitle
+numVotes	Nombre de votes IMDB
+keywords	Mots-clés associés (depuis TMDB)
+Connu	Popularité NLP :
+   - filmconnu si numVotes > 7000	
+   - sinon filmpasconnu	
+Bonfilm	Qualité NLP :
+   - Topfilm si averageRating > 8	
+   - Boffilm si > 5	
+   - Nazefilm si > 3	
+   - Epicnanar sinon	
+📌 Filtrage initial :
+Films sortis entre 1960 et 2025, et diffusés en France uniquement.
 
 -------------------------------------------------------------
 
