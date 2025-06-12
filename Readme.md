@@ -62,21 +62,19 @@ Toutes les bibliothèques utilisées sont dans requirements.txt à la racine du 
 | `keywords`          | Mots-clés associés (depuis TMDB)                                            |
 
 
-Connu	Popularité NLP :  
+###  Métrique NLP : `Connu`
 
-   - filmconnu si numVotes > 7000	  
+| Colonne   | Description                                 | Critères de classification               |
+|-----------|---------------------------------------------|------------------------------------------|
+| `Connu`   | Popularité du film selon le nombre de votes | - `filmconnu` si `numVotes > 7000`  <br> - `filmpasconnu` sinon |
+ 
    
-   - sinon filmpasconnu	  
-   
-Bonfilm	Qualité NLP :  
+###  Métrique NLP : `Bonfilm`
 
-   - Topfilm si averageRating > 8	  
-   
-   - Boffilm si > 5	  
-   
-   - Nazefilm si > 3	  
-   
-   - Epicnanar sinon	  
+| Colonne    | Description                                  | Critères de classification                                      |
+|------------|----------------------------------------------|-----------------------------------------------------------------|
+| `Bonfilm`  | Qualité estimée du film selon la note IMDB   | - `Topfilm` si `averageRating > 8`  <br> - `Boffilm` si `> 5`  <br> - `Nazefilm` si `> 3`  <br> - `Epicnanar` sinon |
+  
    
 📌 Filtrage initial :  
 
