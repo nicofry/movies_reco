@@ -83,6 +83,7 @@ Merci à tous, la promo Wild 2025, Viven, Abdel, la boulangerie du coin et ses f
 Merci à vous, vous êtes incroyables!
 
 
-![Donut Image](https://github.com/user-attachments/assets/6357fbfe-8ecb-4167-8f07-c4dfdc0380bd)
+![Movie Suggestions](https://raw.githubusercontent.com/nicofry/movies_reco/main/Screenshot%202025-06-12%20at%2016.40.41.png)
+
 
 
