@@ -108,18 +108,27 @@ Films sortis entre 1960 et 2025, et diffusés en France uniquement.
 
 3. UTILISATION.
 
-1/ Charger l'ensemble du projet.
-2/ Ouvrir le fichier back.py avec VScode ou un autre IDE.
-3/ Dans l'invite de commande, taper (sous BASH): uvicorn main:app --reload 
-Ca va lancer l'API (Attention! il faut bien être dans le dossier Dataset sur BASH!).
-4/ Ouvrir une nouvelle invite de commande et se déplacer dans le dossier Front
-5/ Taper streamlit run site.py
+1/ Charger l'ensemble du projet.  
+
+2/ Ouvrir le fichier back.py avec VScode ou un autre IDE.  
+
+3/ Dans l'invite de commande, taper (sous BASH): uvicorn main:app --reload   
+
+Ca va lancer l'API (Attention! il faut bien être dans le dossier Dataset sur BASH!).  
+
+4/ Ouvrir une nouvelle invite de commande et se déplacer dans le dossier Front  
+
+5/ Taper streamlit run site.py  
+
 
 ---Dans le navigateur---
 
-1/ Taper un nom de film ou fragment de nom de film (les titres sont les titres français!)
-2/ Cliquer et choisir dans la liste déroulante le film désiré
-3/ Cliquer sur option Confort ou Découverte.
+1/ Taper un nom de film ou fragment de nom de film (les titres sont les titres français!)  
+
+2/ Cliquer et choisir dans la liste déroulante le film désiré  
+
+3/ Cliquer sur option Confort ou Découverte.  
+
 
 Voilà!
 
