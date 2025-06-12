@@ -176,14 +176,59 @@ if query:
                     recos = response_reco.json()
                     df = pd.DataFrame(recos)
                     base_url = "https://image.tmdb.org/t/p/w500"
+                    st.markdown("""
+                        <style>
+                        .tooltip {
+                        position: relative;
+                        display: inline-block;
+                        }
+
+                        .tooltip .tooltiptext {
+                        visibility: hidden;
+                        width: 250px;
+                        background-color: white;
+                        color: hotpink;
+                        text-align: left;
+                        border-radius: 8px;
+                        padding: 10px;
+                        border: 2px solid hotpink;
+                        position: absolute;
+                        z-index: 1;
+                        bottom: 110%;
+                        left: 50%;
+                        margin-left: -125px;
+                        opacity: 0;
+                        transition: opacity 0.4s;
+                        font-size: 14px;
+                        }
+
+                        .tooltip:hover .tooltiptext {
+                        visibility: visible;
+                        opacity: 1;
+                        }
+                        </style>
+                        """, unsafe_allow_html=True)
+
+
+                    st.markdown(f"<h5 style='text-align: center;'>{'Vous allez adorer :' if launch else 'Moins connu mais pourquoi pas :'}</h5>", unsafe_allow_html=True)
+
+                    
                 if launch:
                         st.markdown("<h5 style='text-align: center;'>Vous allez adorer:</h5>", 
                         unsafe_allow_html=True)
                         cols = st.columns(5)
-                        for i, row in enumerate(df.head().itertuples()):
+                        for i, row in enumerate(df.head().itertuples()):  # ou df.tail() selon mode Confort/Découverte
                             with cols[i]:
-                                st.image(f"{base_url}{row.poster_path}", use_container_width=True)
-                                st.markdown(f"**{row.primaryTitle}**<br>⭐ {round(row.averageRating, 1)}", unsafe_allow_html=True) 
+                                st.markdown(f"""
+                                <div class="tooltip">
+                                    <img src="{base_url}{row.poster_path}" style="width:100%; border-radius:8px;">
+                                    <span class="tooltiptext">{row.overview}</span>
+                                </div>
+                                <div style="text-align:center;"><strong>{row.primaryTitle}</strong><br>⭐ {round(row.averageRating, 1)}</div>
+                                """, unsafe_allow_html=True)
+
+
+
                 elif launch2:
                         st.markdown("<h5 style='text-align: center;'>Moins connu mais pourquoi pas:</h5>", 
                         unsafe_allow_html=True)
