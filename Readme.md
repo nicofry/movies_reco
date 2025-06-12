@@ -18,11 +18,16 @@ Toutes les bibliothèques utilisées sont dans requirements.txt à la racine du 
 
 📁 COMPOSITION
 
-📂 Dossier Dataset :
-__init__.py : Permet la relation inter-dossier
-back.py : Contient les différentes fonctions de recommandation
-main.py : Contient l'API
-NLP_table_prep.csv : Table de données utilisée pour les recommandations (voir plus bas)
+📂 Dossier Dataset :  
+
+__init__.py : Permet la relation inter-dossier  
+
+back.py : Contient les différentes fonctions de recommandation  
+
+main.py : Contient l'API  
+
+NLP_table_prep.csv : Table de données utilisée pour les recommandations (voir plus bas)  
+
 📂 Dossier Front :
 __init__.py : Permet la relation inter-dossier
 site.py : Interface utilisateur avec Streamlit
