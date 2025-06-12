@@ -84,6 +84,28 @@ numVotes	Nombre de votes IMDB
 
 keywords	Mots-clés associés (depuis TMDB)  
 
+### 📊 Colonnes principales
+
+| Colonne            | Description                                                                 |
+|--------------------|-----------------------------------------------------------------------------|
+| `Unnamed: 0`        | Numéro de ligne                                                             |
+| `primaryTitle`      | Titre du film (version française)                                           |
+| `tconst`            | Identifiant IMDB                                                            |
+| `runtimeMinutes`    | Durée du film (minutes)                                                     |
+| `genres`            | Genres du film (max 3)                                                      |
+| `averageRating`     | Note moyenne IMDB                                                           |
+| `overview`          | Résumé du film (en anglais)                                                 |
+| `poster_path`       | Lien (partiel) vers le poster (depuis AlloCiné)                             |
+| `title_and_year`    | Titre + année (utile pour différencier les remakes)                         |
+| `nconst`            | Identifiants IMDB des acteurs et du réalisateur                             |
+| `all_categ`         | Concaténation de genres, overview, acteurs, keywords, Bonfilm               |
+| `overview_simple`   | Résultat de `all_categ` passé dans un normalizer + lemmatiseur              |
+| `startYear`         | Année de sortie                                                             |
+| `normalized_title`  | Version normalisée de `primaryTitle`                                        |
+| `numVotes`          | Nombre de votes IMDB                                                        |
+| `keywords`          | Mots-clés associés (depuis TMDB)                                            |
+
+
 Connu	Popularité NLP :  
 
    - filmconnu si numVotes > 7000	  
