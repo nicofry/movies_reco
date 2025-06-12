@@ -1,11 +1,8 @@
 import streamlit as st
 import requests
 import pandas as pd
-import unidecode
-import re
 import base64
-import os
-import sys
+
 
 file_path = "wallpaper.jpg"
 with open(file_path, "rb") as f:
@@ -210,7 +207,7 @@ if query:
                         """, unsafe_allow_html=True)
 
 
-                    st.markdown(f"<h5 style='text-align: center;'>{'Vous allez adorer :' if launch else 'Moins connu mais pourquoi pas :'}</h5>", unsafe_allow_html=True)
+                    
 
                     
                 if launch:

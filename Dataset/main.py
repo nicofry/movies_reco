@@ -1,19 +1,18 @@
-from fastapi import FastAPI, Query
-from fastapi.middleware.cors import CORSMiddleware
-from typing import List
+from fastapi import FastAPI
 import pandas as pd
 from back import ML_lezgo,title_list, normalize
-import sys
 import os
 
 app = FastAPI()
-#uvicorn main:app --reload
+#Commande de lancement: uvicorn main:app --reload
 
+#Renvoi de liste de titres en prenant le résultat de la recherche
 @app.get('/suggest')
 def suggest(name:str):
     df_titles = title_list(name).to_dict()
     return df_titles
 
+# Renvoi des résultats du ML sur le cible cible
 @app.get('/reco')
 def reco(choice:str):
     df_result = ML_lezgo(choice).to_dict()
