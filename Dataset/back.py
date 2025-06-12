@@ -38,7 +38,7 @@ def title_list(search:str):
 
 # Vectorisation de la colonne catégorielle
 vectorizer = TfidfVectorizer()
-matrix = vectorizer.fit_transform(df['all_categ'])
+matrix = vectorizer.fit_transform(df['overview_simple'])
 
 
 def ML_lezgo(tconst:str):
