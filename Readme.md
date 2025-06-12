@@ -82,3 +82,10 @@ Voilà!
 Merci à tous, la promo Wild 2025, Viven, Abdel, la boulangerie du coin et ses flans.
 Merci à vous, vous êtes incroyables!
 
+
+![Movie Suggestions](https://raw.githubusercontent.com/nicofry/movies_reco/main/Screenshot%202025-06-12%20at%2016.40.41.png?raw=true)
+
+
+
+
+
