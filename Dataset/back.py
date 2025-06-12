@@ -48,19 +48,35 @@ matrix = vectorizer.fit_transform(df['all_categ'])
 
 
 def ML_lezgo(tconst:str):
+    
+
+    
     pos = df[df['tconst'] == tconst].index
     matrix_movie = matrix[pos]
     simil = cosine_similarity(matrix, matrix_movie)
 
     # Test avec le film
-    ind = np.argpartition(simil.ravel(), -20)[-20:]
+    ind = np.argpartition(simil.ravel(), -30)[-30:]
 
 
     neighbor_info = df.loc[ind][['tconst', 'primaryTitle','startYear', 'runtimeMinutes',
-   'averageRating', 'numVotes', 'genres', 'poster_path']].sort_values(by= 'numVotes', ascending= False)
+   'averageRating', 'numVotes', 'genres', 'poster_path']]
     
-    neighbor_info = neighbor_info[neighbor_info['tconst'] != tconst]
+    neighbor_info['genres_list'] = neighbor_info['genres'].apply(lambda x: x.split(','))
 
+    def prox(laliste):
+        compteur = 0
+        for genre in neighbor_info[neighbor_info['tconst'] == tconst]['genres_list'].values[0]:
+            if genre in laliste:
+                compteur += 1
+        return compteur
+
+    neighbor_info['proxy'] = neighbor_info['genres_list'].apply(prox)
+    neighbor_info = neighbor_info[neighbor_info['tconst'] != tconst]
+    
+
+
+    neighbor_info = neighbor_info.sort_values(by= [ 'proxy','numVotes'], ascending= [False,False])
 
     # Sélectionner les lignes des voisins dans df et quelques colonnes pertinentes
     nearest_neighbor_info = neighbor_info[0:6]
