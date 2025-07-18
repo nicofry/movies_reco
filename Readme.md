@@ -90,7 +90,7 @@ Films sortis entre 1960 et 2025, et diffusés en France uniquement.
 
 3/ Dans l'invite de commande, taper (sous BASH): uvicorn main:app --reload   
 
-Ca va lancer l'API (Attention! il faut bien être dans le dossier Dataset sur BASH!).  
+Ca va lancer l'API (Attention! il faut bien être dans le dossier Dataset).  
 
 4/ Ouvrir une nouvelle invite de commande et se déplacer dans le dossier Front  
 
